@@ -10,6 +10,7 @@ const chats = require("../assets/icons/chats.png");
 const add = require("../assets/icons/add.png");
 const notifications = require("../assets/icons/notifications.png");
 const profile = require("../assets/icons/profile.png");
+const left_arrow = require("../assets/icons/left_arrow.png");
 
 export default {
   
@@ -23,5 +24,6 @@ export default {
     chats,
     add,
     notifications,
-    profile
+    profile,
+    left_arrow
 }

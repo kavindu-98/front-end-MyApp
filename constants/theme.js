@@ -14,7 +14,7 @@ export const COLORS = {
     placeholder: "#C7C9D9",
     outLine: "#DDE5E9",
     dark_grey : "#4F5053",
-    transparentWhite: 'rgba(255, 255, 255, 0.2)',
+    transparentWhite: 'rgba(255, 255, 255, 0)',
     transparentBlack: 'rgba(0, 0, 0, 0.4)',
     
 
@@ -35,6 +35,7 @@ export const SIZES = {
   padding2: 15,
   padding3: 10,
   padding4: 0,
+  padding5: -30,
 
   // font sizes
   largeTitle: 40,
@@ -54,11 +55,12 @@ export const SIZES = {
 };
 
 export const FONTS = {
-    largeTitle: { fontFamily: "Roboto-Black", fontSize: SIZES.largeTitle },
+    largeTitle: { fontFamily: "Roboto-Bold", fontSize: SIZES.largeTitle },
     h1: { fontFamily: "Roboto-Black", fontSize: SIZES.h1, lineHeight: 36 },
     h2: { fontFamily: "Roboto-Bold", fontSize: SIZES.h2, lineHeight: 30 },
     h3: { fontFamily: "Roboto-Bold", fontSize: SIZES.h3, lineHeight: 22 },
     h4: { fontFamily: "Roboto-Bold", fontSize: SIZES.h4, lineHeight: 22 },
+    h5: { fontFamily: "Roboto-Bold", fontSize: SIZES.h4, lineHeight: 22 },
     body1: { fontFamily: "Roboto-Regular", fontSize: SIZES.body1, lineHeight: 36 },
     body2: { fontFamily: "Roboto-Regular", fontSize: SIZES.body2, lineHeight: 30 },
     body3: { fontFamily: "Roboto-Regular", fontSize: SIZES.body3, lineHeight: 22 },

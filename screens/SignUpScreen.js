@@ -1,14 +1,13 @@
 import React, {useEffect, useState} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
-import {LoginComponent, SignupComponent} from '../components';
-import { View, Text, TextInput, StyleSheet,KeyboardAvoidingView, StatusBar,TouchableWithoutFeedback,Keyboard } from 'react-native';
+import { View, Text, TextInput, StyleSheet,KeyboardAvoidingView, StatusBar,TouchableWithoutFeedback,Keyboard ,ScrollView, Animated} from 'react-native';
 import { Button} from 'react-native-elements';
 import { COLORS, FONTS, SIZES, icons } from '../constants';
 import { TextIconButton} from "../components"
 import * as Animatable from 'react-native-animatable';
 import Feather from 'react-native-vector-icons/Feather'
-import { ScrollView } from 'react-native-gesture-handler';
+
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -50,6 +49,17 @@ const SignUpScreen = ({navigation}) => {
         }
       };
 
+      let AnimatedHeaderValue = new Animated.Value(0);
+      const Header_Max_Height = 150;
+      const Header_Min_Height = 40;
+     
+      const animateHeaderHeight = AnimatedHeaderValue.interpolate({
+        inputRange: [0, Header_Max_Height- Header_Min_Height],
+        outputRange: [Header_Max_Height, Header_Min_Height],
+        extrapolate: 'clamp'
+      })
+       
+
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} > 
     <View style={styles.container}>
@@ -57,21 +67,48 @@ const SignUpScreen = ({navigation}) => {
                         style="auto"
                         />
         
-      <View style={styles.header}>
+      <Animated.View style={
+        [styles.header,
+          {
+            height: animateHeaderHeight
+          }
+        ]}>
+          
+            <TextIconButton
+                           
+                           icon={icons.left_arrow}
+                           customContainerStyle={{
+                            marginTop: SIZES.padding2,
+                            backgroundColor: COLORS.transparentWhite,
+                            width: 60,
+                            marginLeft: -6
+                          
+                        }}
+                        customIconStyle={{
+                            height: 30
+                        }}
+                        onPress={() => {navigation.navigate('Login')}}
+                    /> 
+                    
+            
+          <Text style={styles.Title}>Sign up</Text>
         <View style={styles.button}>
+
         <TextIconButton
-                           label="Login"
+                           label="Log in"
                            customContainerStyle={{
                             width: 130,
                             height: 35,
                             borderRadius: SIZES.radius_btn1,
-                            marginLeft: 15,
+                            // marginLeft: 15,
                             backgroundColor: COLORS.transparentWhite,
-                            // flexDirection: 'flex-end'
+                            alignItems: 'flex-end',
+                            justifyContent: 'space-around'
                             
                         }}
                         customLabelStyle={{
-                            color: COLORS.grey,
+                            color: COLORS.red1Font,
+                            ...FONTS.h2,
                             alignItems: 'center',
                             marginLeft: -15,
                             fontSize: 20
@@ -81,18 +118,20 @@ const SignUpScreen = ({navigation}) => {
                    
         </View>
          
-      </View>
+      </Animated.View>
      
-      <ScrollView>
+      <ScrollView
+       scrollEventThrottle={16}
+       onScroll={Animated.event(
+        [{nativeEvent: {contentOffset: {y: AnimatedHeaderValue}}}],
+        {useNativeDriver: false}
+       )}
       
-      <KeyboardAvoidingView style={styles.footer}>
-        	<View 
-            style={styles.button}
-            > 
-            
-                    
-          </View>
-          <Animatable.View  animation= "fadeInRight"  style={{ marginTop: SIZES.padding3, margin: SIZES.padding4}}>
+      >
+      
+      <View style={styles.footer}>
+        
+          <View  style={{ marginTop: SIZES.padding5, margin: SIZES.padding4}}>
                 
                 <View>
                       <Text style={styles.inputTitle}>FIRST NAME</Text>
@@ -180,12 +219,12 @@ const SignUpScreen = ({navigation}) => {
                    />
   
 
-          </Animatable.View>
+          </View>
 
 
 
           
-      </KeyboardAvoidingView>
+      </View>
       </ScrollView>
     </View>
     </TouchableWithoutFeedback>
@@ -198,32 +237,34 @@ export default SignUpScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1, 
-    backgroundColor: COLORS.primary
+    backgroundColor: COLORS.white
   },
   header: {
-      flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center',
-      position: 'absolute'
+      // flex: 1,
+      flexDirection: 'row',
+      
   },
   footer: {
-      flex: 1,
+      // flex: 1,
       // height: "70%",
       backgroundColor: '#fff',
-      borderTopLeftRadius: 30,
-      borderTopRightRadius: 30,
+      // borderTopLeftRadius: 30,
+      // borderTopRightRadius: 30,
       paddingHorizontal: 20,
       paddingVertical: 30
   },
-
-  text_footer: {
-      color: '#05375a',
-      fontSize: 18
+  Title: {
+    justifyContent: 'flex-end',
+    color: COLORS.black,
+    ...FONTS.largeTitle,
+    fontWeight: 'bold',
+    marginTop: 80,
+    marginLeft: -34
+    
   },
-  tab: {
-     backgroundColor: COLORS.primary
-  },
 
+ 
+ 
   textInput: {
       flex: 1,
       marginTop: Platform.OS === 'ios' ? 0 : -12,
@@ -235,21 +276,14 @@ const styles = StyleSheet.create({
       fontSize: 14,
   },
   button: {
-      marginLeft: 10,
-      flexDirection: 'row', 
+      // marginLeft: 10,
+      alignItems: 'flex-end', 
+      marginLeft: 130,
+      marginTop: 30
 
   },
-  signIn: {
-      width: '100%',
-      height: 50,
-      justifyContent: 'center',
-      alignItems: 'center',
-      borderRadius: 10
-  },
-  textSign: {
-      fontSize: 18,
-      fontWeight: 'bold'
-  },
+
+ 
   inputTitle: {
     
     ...FONTS.h3,
