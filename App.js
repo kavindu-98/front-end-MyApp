@@ -17,11 +17,11 @@ const App = () => {
               initialRouteName={"Home"}
              >
         {/* <Stack.Screen name="Welcome" component={WelcomeScreen} /> */}
-        {/* <Stack.Screen name="Role" component={RoleSelect} /> */}
-        {/* <Stack.Screen name="SL" component={SlScreen} /> */}
-        <Stack.Screen name="Login" component={LoginScreen} />
+        {/* <Stack.Screen name="Role" component={RoleSelect} /> 
+         <Stack.Screen name="SL" component={SlScreen} /> */}
+        {/* <Stack.Screen name="Login" component={LoginScreen} /> */}
         {/* <Stack.Screen name="SignUp" component={SignUpScreen} /> */}
-        {/* <Stack.Screen name="Home" component={Tabs} /> */}
+        <Stack.Screen name="Home" component={Tabs} />
         
 
     </Stack.Navigator>

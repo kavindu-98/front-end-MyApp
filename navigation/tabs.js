@@ -45,14 +45,14 @@ const Tabs = () => {
               
               
             tabBarIcon: ({ focused }) => {
-                const tintColor = focused ? COLORS.primary : COLORS.black;
+                const tintColor = focused ? COLORS.primary : COLORS.primary;
                 
 
                 switch (route.name) {
                     case "Home":
                         return(
                             <Image
-                                source={icons.home}
+                                source={focused ? icons.homeA : icons.homeN}
                                 resizeMode="contain"
                                 style={{
                                     tintColor: tintColor,
@@ -64,7 +64,7 @@ const Tabs = () => {
                     case "Chat":
                         return(
                                 <Image
-                                source={icons.chats}
+                                source={icons.location}
                                 resizeMode="contain"
                                 style={{
                                     tintColor: tintColor,
@@ -73,23 +73,10 @@ const Tabs = () => {
                                 }}
                             />
                         )
-                    case "Add":
-                        return(
-                            <Image
-                                 source={icons.add}
-                                 resizeMode="contain"
-                                  style={{
-                                        tintColor: tintColor,
-                                        width: 45,
-                                        height: 45
-                                  }}
-                            
-                            />
-                        )
                     case "Notifications":
                         return(
                                 <Image
-                                source={icons.notifications}
+                                source={focused ? icons.ActiviesA : icons.ActiviesN}
                                 resizeMode="contain"
                                 style={{
                                     tintColor: tintColor,
@@ -101,12 +88,12 @@ const Tabs = () => {
                     case "Profile":
                         return(
                                 <Image
-                                source={icons.profile}
+                                source={focused ? icons.profileA : icons.profileN}
                                 resizeMode="contain"
                                 style={{
                                     tintColor: tintColor,
-                                    width: 25,
-                                    height: 25
+                                    width: 27,
+                                    height: 27
                                 }}
                             />
                         )
@@ -118,18 +105,14 @@ const Tabs = () => {
             <Tab.Screen
                 name="Home"
                 component={HomeScreen}
-                // options={{ headerShown: false}}
+                options={{ headerShown: false}}
             />
             <Tab.Screen
                 name="Chat"
                 component={HomeScreen}
                 options={{ headerShown: false}}
             />
-            <Tab.Screen
-                name="Add"
-                component={HomeScreen}
-                options={{ headerShown: false}}
-            />
+          
             <Tab.Screen
                 name="Notifications"
                 component={HomeScreen}
@@ -138,7 +121,7 @@ const Tabs = () => {
             <Tab.Screen
                 name="Profile"
                 component={ProfileScreen}
-                // options={{ headerShown: false}}
+                options={{ headerShown: false}}
             />
 
    </Tab.Navigator>

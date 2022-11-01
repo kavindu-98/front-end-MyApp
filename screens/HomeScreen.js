@@ -1,135 +1,341 @@
-import { StyleSheet, Text, View, TouchableOpacity, ScrollView} from 'react-native';
-import React, { useEffect, useState } from 'react';
-import { COLORS } from '../constants';
-import { Header, Icon, ListItem, SearchBar } from "react-native-elements";
-import { useNavigation } from "@react-navigation/native";
+import React from 'react';
+import {
+    View,  
+    Text,
+    ImageBackground,
+    Image,
+    ScrollView,
+    Button,
+    // Section,
+    FlatList
+} from 'react-native';
+// import { FlatList } from 'react-native-gesture-handler';
 
-import * as Animatable from 'react-native-animatable';
-import { TextInput } from 'react-native-gesture-handler';
+import {
+    IconButton,
+    TextButton,
+    // VerticalCourseCard,
+    // LineDivider,
+    // CategoryCard,
+    // HorizontalCourseCard
+} from "../components"
 
+import{
+    COLORS,
+    FONTS,
+    SIZES,
+    icons,
+    images,
+    dummyData
+
+} from "../constants";
+
+const Section =({ containerStyle, title, onPress, children }) => {
+    return (
+        <View
+            style={{
+                ...containerStyle
+            }}
+        >
+
+            <View
+                style={{
+                    flexDirection: 'row',
+                    paddingHorizontal: SIZES.padding
+                }}
+            >
+                <Text 
+                    style={{
+                        flex: 1,
+                        ...FONTS.h2
+                    }}
+                    >
+                        {title}
+                </Text>
+                <TextButton
+                    contentContainerStyle={{
+                        width: 80,
+                        borderRadius: 30,
+                        backgroundColor: COLORS.primary
+                    }}
+                    label="See All"
+                    onPress={onPress}
+                >
+
+
+                </TextButton>
+
+            </View>
+                    {/* {children} */}
+        </View>
+    )
+}
 
 const HomeScreen = () => {
 
-  const navigation = useNavigation();
+    function renderHeader() {
+        return (
+            <View
+                style={{
+                    flexDirection: 'row',
+                    marginTop: 40,
+                    marginBottom: 10,
+                    paddingHorizontal: SIZES.padding,
+                    alignItems: 'center'
+                }}
+            >
+                {/* Greeting  */}
+                <View
+                    style={{
+                        flex: 1
+                    }}
+                >
+                    <Text style={{ ...FONTS.h2 }}>Hello, Kavindu!</Text>
+                    <Text 
+                    style={{
+                        color: COLORS.gray50,
+                        ...FONTS.body3
+                    }}>
+                        Sunday, 16th Oct 2022
+                    </Text>
 
-  useEffect(() => {
-    navigation.setOptions({
-      headerStyle: {
-          backgroundColor: COLORS.primary,
-          height: "25%",
-          borderBottomLeftRadius: 30,
-          borderBottomRightRadius: 30,
+                </View>
 
-      },
-      headerTintColor: COLORS.white,
-      headerTitle: false,
-      headerTitle: "",
-      headerLeft: () => (
-          <View>
-              <Animatable.Image
-                animation="bounceIn"
-                // duration="1500"
-                source={require('../assets/images/logo.png')}
-                style={styles.logo}
-                resizeMode="contain"
-              />
-          </View>
+                {/* Notification */}
 
-      ),
+                <IconButton
+                    icon={icons.notifications}
+                    iconStyle={{
+                        tintColor: COLORS.black
+                    }}
+                ></IconButton>
+            </View>
+        )
+    }
 
-      headerBottom: () => (
-        <Header SearchBar rounded>
-          
-            <Icon name='search'/>
-          
-           <TextInput
-              
-              ref="input"
-              placeholder="Search"
+    // function renderStartLearning() {
+    //     return (
+    //         <ImageBackground
+    //             source={images.bg_4}
+    //             style={{
+    //                  alignItems: 'flex-start',
+    //                  marginTop: SIZES.padding,
+    //                  marginHorizontal: SIZES.padding,
+    //                  padding: 15
+    //             }}
 
-              
-              
-              />
+    //             imageStyle={{
+    //                 borderRadius: SIZES.radius
+    //             }}
+    //             >
+    //                 {/* info */}
+    //                  <View>
+    //                     <Text
+    //                         style={{
+    //                             color: COLORS.white,
+    //                             ...FONTS.body2
+    //                         }}
+    //                         >
+    //                         INTE 31273 
+    //                     </Text>
+    //                     <Text 
+                        
+    //                     style={{
+    //                         color: COLORS.white,
+    //                         ...FONTS.body2
+    //                     }}>
+    //                         Integrative Programming and Technologies(20/21)
+    //                     </Text>
+    //                     <Text 
+                        
+    //                     style={{
+    //                         marginTop: SIZES.radius,
+    //                         color: COLORS.white,
+    //                         ...FONTS.body4
+    //                     }}>
+    //                         By Mr. Asanka Sanjaya Herath
+    //                     </Text>
+    //                  </View>
+    //                  {/* Image */}
+    //                   <Image
+    //                     source={images.laptop}
+    //                     style={{
+    //                         width: "89%",
+    //                         height: 120,
+    //                         marginTop: SIZES.padding,
+    //                         marginBottom: SIZES.radius
+    //                     }}
+    //                   />
 
-        </Header>
-             
+    //                   {/* button */}
+    //                   <TextButton
+    //                     label="Start Learning"
+    //                     contentContainerStyle={{
+    //                         height: 40,
+    //                         paddingHorizontal: SIZES.padding,
+    //                         borderRadius: 20,
+    //                         backgroundColor: COLORS.white
+    //                     }}
+    //                     labelStyle={{
+    //                         color: COLORS.black
+    //                     }}
+    //                    >
 
+    //                   </TextButton>
+    //                     </ImageBackground>
+    //     )
+    // }
 
-              
+//         function renderCourses() {
+//         return (
 
-      ),
-      
-          headerSearchBarOptions: {
-            placeholder: "Friends",
-            onChangeText: (event) => {
-                searchFilterFunction(event.nativeEvent.text);
-            },
-        },
-    });
-
-  }, [navigation]);
-  return (
-    // <View style={styles.container}>
-    //   {/* upper block */}
-    //   <View style={{ height: "30%", backgroundColor: COLORS.white }}>
-    //     <View  style={{
-    //        flex: 1,
-    //        borderBottomLeftRadius: 50,
-    //        borderBottomRightRadius: 50,
-    //        backgroundColor: COLORS.primary
-    //     }}>
            
-    //        <View style={styles.header}>
-    //         <Animatable.Image
-    //             animation="bounceIn"
-    //             // duration="1500"
-    //             source={require('../assets/images/LOGO.png')}
-    //             style={styles.logo}
-    //             resizeMode="contain"
-    //           />
-    //         </View>
-    //         <View style={styles.searchBar}>
-    //           {/* <SearchBar
-    //               placeholder="Type Here..."
-    //               // onChangeText={this.updateSearch}
-    //               // value={search}
-    //           /> */}
-    //         </View>
-    //     </View>
-    //   </View>
-    // </View>
+//             <FlatList
+//                 horizontal
+//                 data={dummyData.courses_list_1}
+//                 listKey="Courses"
+//                 keyExtractor={item => 'Courses-${item.id}'}
+//                 showsHorizontalScrollIndicator={false}
+//                 contentContainerStyle={{
+//                     marginTop: 50
+//                 }}
+//                 renderItem={({ item, index}) => (
+//  <VerticalCourseCard
+//     containerStyle={{
+        
+//         marginLeft: index == 0 ? SIZES.
+//         padding: SIZES.radius,
+//         marginRight: index == dummyData.
+//         courses_list_1.length - 1 ? SIZES.
+//         padding : 0
+//     }}
+//     course={item}
+// /> 
+//                 )}
+//             />
 
-        <ScrollView>
-        <Text style={styles.textFriends}>Friends</Text>
+
+//         )
+
+      
+//     }
+
+    // function renderCategories() {
+    //     return (
+    //         <Section
+    //             title="Categories"
+    //         >
+
+    //         <FlatList
+    //             horizontal
+    //             data={dummyData.categories}
+    //             listKey="Categories"
+    //             keyExtractor={item => 'Categories-${item.id}'}
+    //             showsHorizontalScrollIndicator={false}
+    //             contentContainerStyle={{
+    //                 marginTop: SIZES.padding
+    //             }}
+    //             renderItem={({ item, index }) => (
+    //                     <CategoryCard
+    //                         category={item}
+    //                         containerStyle={{
+    //                             marginLeft: index == 0 ? SIZES.padding: SIZES.base,
+    //                             marginRight: index == dummyData.categories.length - 1 ? SIZES.padding: 0
+    //                         }}
+    //                     />
+    //             )}
+
+    //             />
+
+    //         </Section>
+    //     )
+    // }
+
+    // function renderPopularCourses() {
+    //     return(
+    //         <Section
+    //         title="Popular Courses"
+    //         containerStyle={{
+    //             marginTop: 30
+    //         }}
+    //     >
     
+    //     <FlatList
+           
+    //         data={dummyData.courses_list_2}
+    //         listKey="PopularCourses"
+    //         scrollEnabled={false}
+    //         keyExtractor={item => 'PopularCourses-${item.id}'}
+    //         showsHorizontalScrollIndicator={false}
+    //         contentContainerStyle={{
+    //             marginTop: SIZES.radius,
+    //             paddingHorizontal: SIZES.padding
+    //         }}
+    //         renderItem={({ item, index }) => (
+    //                <HorizontalCourseCard
+    //                     course={item}
+    //                     containerStyle={{
+    //                         marginVertical: SIZES.padding,
+    //                         marginTop: index == 0 ? SIZES.radius : SIZES.padding
+    //                     }}
+                   
+    //                >
+    
+    //                </HorizontalCourseCard>
+    //         )}
+    //         ItemSeparatorComponent={() => (
+    //             <LineDivider
+    //                     lineStyle={{
+    //                         backgroundColor: COLORS.gray20
+    //                     }}
+                
+    //             />
+    //         )}
+    
+    //         />
+    
+    //     </Section>
+    //     )
+    
+    // }
 
-    </ScrollView>
-  )
+    return (
+        <View
+            style={{
+                flex: 1,
+                backgroundColor: COLORS.white
+            }}
+        >
+ 
+        {/* header */}
+        {renderHeader()}
+        {/* Content  */}
+        <ScrollView
+             contentContainerStyle={{
+                paddingBottom: 150
+             }} 
+             showsVerticalScrollIndicator={false}
+        >
+            {/* Start Learning */}
+             {/* {renderStartLearning()} */}
+
+             {/* Courses */}
+             {/* {renderCourses()} */}
+
+             {/* <LineDivider
+                lineStyle={{
+                    marginVertical: SIZES.padding
+                }}
+             /> */}
+
+             {/* Categories */}
+             {/* {renderCategories()} */}
+
+             {/* popular Courses */}
+             {/* {renderPopularCourses()} */}
+        </ScrollView>  
+        </View>
+    )
 }
 
 export default HomeScreen;
-
-const styles = StyleSheet.create({
-
-  header: {
-    flex: 1,
-    // justifyContent: 'center',
-    // alignItems: 'center',
-
-},
-
-logo: {
-  width: 100,
-  padding: "5%",
-  marginLeft: 20,
-  marginTop: 25
-
-},
-container: {
-  backgroundColor: COLORS.white,
-  height: "100%",
-  flex: 1
-}
-
-
-})

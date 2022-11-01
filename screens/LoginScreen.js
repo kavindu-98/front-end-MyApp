@@ -13,20 +13,56 @@ import {
   Keyboard,
   TouchableOpacity,
   ScrollView,
-  Animated
+  Animated,
+  
 } from "react-native";
 import { Button, Icon } from "react-native-elements";
 import { COLORS, FONTS, SIZES, icons } from "../constants";
 import { TextIconButton, PasswordIcon } from "../components";
 import * as Animatable from "react-native-animatable";
+import SelectBox from 'react-native-multiple-select'
 
 const Tab = createMaterialTopTabNavigator();
 
 const API_URL = 'http://192.168.1.107:8080//api/users/login';
 
+function onChange() {
+  return (val) => setSelectedTeam(val)
+}
+
 const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+   const [selectedTeam, setSelectedTeam] = useState({});
+
+  const K_Option = [
+    {
+      item : '+88',
+      id: 'india',
+    },
+    {
+      item : '+97',
+      id: 'mal',
+    },
+    {
+      item : '+94',
+      id: 'sri',
+    },
+    {
+      item : '+99',
+      id: 'ban',
+    },
+    {
+      item : '+70',
+      id: 'japan',
+    },
+    {
+      item : '+60',
+      id: 'usa',
+    },
+  ]
+
+ 
 
   const register = async () => {
     const payload = {
@@ -134,23 +170,62 @@ const LoginScreen = ({ navigation }) => {
           <View  style={{ marginTop: SIZES.padding5, margin: SIZES.padding4}}>
                 
                 <View>
-                   
-                  <Text style={styles.inputTitle}>EMAIL</Text>
+                   <View style={styles.namecontainer}>
+                    <View>
+                        <Text style={styles.inputTitle}>FIRST NAME</Text>
+                          <TextInput
+                            style={styles.input}
+                            placeholder="Enter your First Name"
+                            autoFocus
+                            value={email}
+                            onChangeText={text => setEmail(text)}
+                          />
+                    </View>
+                    <View>
+                        <Text style={styles.inputTitle}>LAST NAME</Text>
+                          <TextInput
+                            style={styles.input}
+                            placeholder="Enter your Last Name"
+                            autoFocus
+                            value={email}
+                            onChangeText={text => setEmail(text)}
+                          />
+                    </View>
+                     
+                   </View>
+                 
+                    <Text style={styles.inputTitle}>EMAIL</Text>
                   <TextInput
                     style={styles.input}
-                    placeholder="Enter your email"
-                    autoFocus
-                    value={email}
-                    onChangeText={text => setEmail(text)}
-                  />
-                    <Text style={styles.inputTitle}>COUNTRY CODE</Text>
-                  <TextInput
-                    style={styles.input}
-                    placeholder="Create your password"
+                    placeholder="Create your Email"
                     secureTextEntry
                     value={password}
                     onChangeText={text => setPassword(text)}
                   />
+
+                  <View style={styles.namecontainer}>
+                      <View>
+                          <Text style={styles.inputTitle}>COUNTRY CODE</Text>
+                           <SelectBox 
+                            label = "select country code" 
+                            options = {K_Option}
+                            value= {selectedTeam}
+                            onChange ={onChange()} 
+                            hideInputFilter = 'false'
+                            />
+                      </View>
+                      <View>
+                          <Text style={styles.inputTitle}>LAST NAME</Text>
+                            <TextInput
+                              style={styles.input}
+                              placeholder="Enter your Last Name"
+                              autoFocus
+                              value={email}
+                              onChangeText={text => setEmail(text)}
+                            />
+                      </View>
+                      
+                    </View>
                     <Text style={styles.inputTitle}>EMPLOYEE ID</Text>
                   <TextInput
                     style={styles.input}
@@ -245,6 +320,11 @@ const styles = StyleSheet.create({
     marginTop: 80,
     marginLeft: -34
     
+  },
+  namecontainer: {
+      flexDirection: 'row',
+      width: "100%",
+      justifyContent: 'space-between'
   },
 
  
