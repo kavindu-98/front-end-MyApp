@@ -11,6 +11,7 @@ import {
 
 import * as Animatable from 'react-native-animatable';
 import { TextInput } from 'react-native-gesture-handler';
+import { ImageBackground } from 'react-native';
 
 
 
@@ -80,12 +81,17 @@ const ProfileScreen = () => {
   return (
     
    <SafeAreaView style={styles.container}>
+
  {/* header */}
  {renderHeader()}
   
 
         <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.titlebar}>
+          {/* <Image source={require('../assets/images/DayCard.png')}
+           style={{
+            flex: 1, width: null, height: null, resizeMode: 'cover'
+        }}/> */}
         {/* <TouchableOpacity >
 
           <Image
@@ -158,11 +164,6 @@ const ProfileScreen = () => {
         
         </View>
 
-
-            
-
-        
-    
 
          </ScrollView>
          </SafeAreaView>

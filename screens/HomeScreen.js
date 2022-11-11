@@ -14,6 +14,7 @@ import {
 import {
     IconButton,
     TextButton,
+    Cards
     // VerticalCourseCard,
     // LineDivider,
     // CategoryCard,
@@ -113,112 +114,71 @@ const HomeScreen = () => {
         )
     }
 
-    // function renderStartLearning() {
-    //     return (
-    //         <ImageBackground
-    //             source={images.bg_4}
-    //             style={{
-    //                  alignItems: 'flex-start',
-    //                  marginTop: SIZES.padding,
-    //                  marginHorizontal: SIZES.padding,
-    //                  padding: 15
-    //             }}
+    function renderHorizontalScrollView() {
+        return (
 
-    //             imageStyle={{
-    //                 borderRadius: SIZES.radius
-    //             }}
-    //             >
-    //                 {/* info */}
-    //                  <View>
-    //                     <Text
-    //                         style={{
-    //                             color: COLORS.white,
-    //                             ...FONTS.body2
-    //                         }}
-    //                         >
-    //                         INTE 31273 
-    //                     </Text>
-    //                     <Text 
-                        
-    //                     style={{
-    //                         color: COLORS.white,
-    //                         ...FONTS.body2
-    //                     }}>
-    //                         Integrative Programming and Technologies(20/21)
-    //                     </Text>
-    //                     <Text 
-                        
-    //                     style={{
-    //                         marginTop: SIZES.radius,
-    //                         color: COLORS.white,
-    //                         ...FONTS.body4
-    //                     }}>
-    //                         By Mr. Asanka Sanjaya Herath
-    //                     </Text>
-    //                  </View>
-    //                  {/* Image */}
-    //                   <Image
-    //                     source={images.laptop}
-    //                     style={{
-    //                         width: "89%",
-    //                         height: 120,
-    //                         marginTop: SIZES.padding,
-    //                         marginBottom: SIZES.radius
-    //                     }}
-    //                   />
+            <ScrollView>
+              
+                    <Text   
+                    
+                    style={{
+                     ...FONTS.h3,
+                     marginLeft: 30,
+                     color: COLORS.black,
+                     
 
-    //                   {/* button */}
-    //                   <TextButton
-    //                     label="Start Learning"
-    //                     contentContainerStyle={{
-    //                         height: 40,
-    //                         paddingHorizontal: SIZES.padding,
-    //                         borderRadius: 20,
-    //                         backgroundColor: COLORS.white
-    //                     }}
-    //                     labelStyle={{
-    //                         color: COLORS.black
-    //                     }}
-    //                    >
+                }}> Select a Ride</Text>
+                
+                <View style={{ height: 130, marginTop: 20 }}>
+                    <ScrollView
+                    horizontal={true}
+                    showsHorizontalScrollIndicator={false}
+                    >
+                        <Cards imageUri={require('../assets/images/DayCard.png')}>
 
-    //                   </TextButton>
-    //                     </ImageBackground>
-    //     )
-    // }
+                        </Cards>
+                        <Cards imageUri={require('../assets/images/NightCard.png')}>
 
-//         function renderCourses() {
-//         return (
+                        </Cards>
+                        <Cards imageUri={require('../assets/images/NightCard.png')}>
 
+                        </Cards>
+                        <Cards imageUri={require('../assets/images/NightCard.png')}>
+
+                        </Cards>
+                   
+                    </ScrollView>
+
+
+                </View>
+
+
+            </ScrollView>        
+            
+            
+            )
+    }
+
+        function renderCourses() {
+        return (
+
+            <Text   
+                    
+            style={{
+             ...FONTS.h3,
+             marginLeft: 30,
+             color: COLORS.black,
+             
+
+        }}> Select a Ride</Text>
            
-//             <FlatList
-//                 horizontal
-//                 data={dummyData.courses_list_1}
-//                 listKey="Courses"
-//                 keyExtractor={item => 'Courses-${item.id}'}
-//                 showsHorizontalScrollIndicator={false}
-//                 contentContainerStyle={{
-//                     marginTop: 50
-//                 }}
-//                 renderItem={({ item, index}) => (
-//  <VerticalCourseCard
-//     containerStyle={{
-        
-//         marginLeft: index == 0 ? SIZES.
-//         padding: SIZES.radius,
-//         marginRight: index == dummyData.
-//         courses_list_1.length - 1 ? SIZES.
-//         padding : 0
-//     }}
-//     course={item}
-// /> 
-//                 )}
-//             />
+            
+          
 
-
-//         )
+        )
 
       
-//     }
+    }
 
     // function renderCategories() {
     //     return (
@@ -309,6 +269,10 @@ const HomeScreen = () => {
  
         {/* header */}
         {renderHeader()}
+
+        {/* cardlist */}
+        
+       
         {/* Content  */}
         <ScrollView
              contentContainerStyle={{
@@ -318,6 +282,7 @@ const HomeScreen = () => {
         >
             {/* Start Learning */}
              {/* {renderStartLearning()} */}
+             {renderHorizontalScrollView()}
 
              {/* Courses */}
              {/* {renderCourses()} */}
