@@ -5,45 +5,54 @@ import { View, Text, TextInput, StyleSheet,KeyboardAvoidingView, StatusBar,Touch
 import { Button} from 'react-native-elements';
 import { COLORS, FONTS, SIZES, icons } from '../constants';
 import { TextIconButton} from "../components"
-import {useDispatch,useSelector} from 'react-redux'
 import * as Animatable from 'react-native-animatable';
 import Feather from 'react-native-vector-icons/Feather'
-import { logInUser } from '../Actions/userActions';
-import { ToastAndroid } from 'react-native';
+import { WINDOW_WIDTH } from '@gorhom/bottom-sheet';
+import OTPInputView from '@twotalltotems/react-native-otp-input';
 
 
 const Tab = createMaterialTopTabNavigator();
 
-// const API_URL = 'http://192.168.1.107:8080/api/users/';
+const API_URL = 'http://192.168.1.107:8080/api/users/';
 
-//  this Screen for the login screen for the Employee
+const DOTPScreen  = ({navigation}) => {
 
-const LoginScreen  = ({navigation}) => {
+    const [name, setName] = useState('');
+    const [NUM, setNUM] = useState('');
+    const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
+    const [pic, setPic] = useState('');
+    const [field, setField] = useState([]);
+  
 
-const {user,isSuccess,isError,isLoading,message,action}=useSelector((state)=>state.userLogIn)
-  const dispatch = useDispatch();
-
-  const [employeeId, setEmployeeId] = React.useState('');
-  const [password, setPassword] = React.useState('');
-
-  // check the Employee Id and password is correct
-
-  const LoginBtnClick = () => {
-    dispatch(logInUser({employeeId,password}));
-    console.log(employeeId)
-    console.log(password)
-    // navigation.navigate('OTP');
-  };
-  useEffect(()=>{if(action==='logInUser'&&isSuccess){
-navigation.navigate('OTP');
-  }},[user])
-
-
-
-
+    const signup = () => {
+        const payload = {
+          name,
+          email,
+          password,
+        };
+    
+        try {
+          fetch(`${API_URL}/`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(payload),
+          });
+          navigation.navigate('Home');
+          setName('');
+          setPassword('');
+          setConfirmPassword('');
+          setEmail('');
+          setPic('');
+        } catch (error) {
+          console.log(error);
+        }
+      };
 
       let AnimatedHeaderValue = new Animated.Value(0);
-      const Header_Max_Height = 150;
+      const Header_Max_Height = 160;
       const Header_Min_Height = 40;
      
       const animateHeaderHeight = AnimatedHeaderValue.interpolate({
@@ -74,42 +83,18 @@ navigation.navigate('OTP');
                             marginTop: SIZES.padding2,
                             backgroundColor: COLORS.transparentWhite,
                             width: 60,
-                            marginLeft: -10
+                            marginLeft: -6
                           
                         }}
                         customIconStyle={{
                             height: 30
                         }}
-                        onPress={() => {navigation.goBack()}}
+                        onPress={() => navigation.goBack()}
                     /> 
                     
             
-          <Text style={styles.Title}>Login</Text>
-        <View style={styles.button}>
-
-        <TextIconButton
-                           label="Sign Up"
-                           customContainerStyle={{
-                            width: 130,
-                            height: 35,
-                            borderRadius: SIZES.radius_btn1,
-                            // marginLeft: 15,
-                            backgroundColor: COLORS.transparentWhite,
-                            alignItems: 'flex-end',
-                            // justifyContent: 'space-around'
-                            
-                        }}
-                        customLabelStyle={{
-                            color: COLORS.red1Font,
-                            ...FONTS.h2,
-                            // alignItems: 'center',
-                            marginLeft: 50,
-                            fontSize: 20
-                        }}
-                        onPress={() => {navigation.navigate('SignUp')}}
-                    /> 
-                   
-        </View>
+          <Text style={styles.Title}>Verify phone number</Text>
+       
          
       </Animated.View>
      
@@ -124,26 +109,56 @@ navigation.navigate('OTP');
       
       <View style={styles.footer}>
         
-          <View  style={{ marginTop: SIZES.padding5, margin: SIZES.padding4}}>
+          <View  style={{ marginTop: SIZES.padding4, margin: SIZES.padding4}}>
                 
                 <View>
-                      <Text style={styles.inputTitle}>EMPLOYEE ID</Text>
-                  <TextInput
-                    style={styles.input}
-                    placeholder="Enter your Employee ID"
-                    autoFocus
-                    value={employeeId}
-                    onChangeText={text => setEmployeeId(text)}
-                  />
-                  <Text style={styles.inputTitle}>PASSWORD</Text>
-                  <TextInput
-                    style={styles.input}
-                    placeholder="Enter your Password"
-                    autoFocus
-                    secureTextEntry
-                    value={password}
-                    onChangeText={text => setPassword(text)}
-                  />
+                      <View style={{
+                        flexDirection: 'row'
+                      }}>
+                    
+                          <Text style={styles.inputTitle}>Check your SMS messages. We’ve sent you the PIN at </Text>
+                          <Text style={styles.inputTitle1}> +94768510781 </Text>
+                      </View>
+                     {/* <OTPInputView></OTPInputView> */}
+                        <View style={{
+                          flexDirection: 'row',
+                          marginTop:30
+                        }}>
+                            <TextInput
+                              style={styles.input}
+                              placeholder=""
+                              // autoFocus
+                              value={NUM}
+                              onChangeText={text => setNUM(text)}
+                            />
+                              <TextInput
+                              style={styles.input}
+                              placeholder=""
+                              // autoFocus
+                              value={NUM}
+                              onChangeText={text => setNUM(text)}
+                            />
+                              <TextInput
+                              style={styles.input}
+                              placeholder=""
+                              // autoFocus
+                              value={NUM}
+                              onChangeText={text => setNUM(text)}
+                            />
+                              <TextInput
+                              style={styles.input}
+                              placeholder=""
+                              // autoFocus
+                              value={NUM}
+                              onChangeText={text => setNUM(text)}
+                            />
+
+                        </View>
+                   
+
+
+                  
+             
               
                
           
@@ -151,12 +166,13 @@ navigation.navigate('OTP');
                 </View>
 
                     <TextIconButton
-                      label="LOG IN"
+                      label="VERIFY"
                       customContainerStyle={{
                       width: "100%",
                       height: 55,
+                      
                       borderRadius: SIZES.radius_btn4,
-                      marginTop: SIZES.padding1
+                      marginTop: 50
                       }}
                       customLabelStyle={{
                       color: COLORS.white,
@@ -165,13 +181,10 @@ navigation.navigate('OTP');
                       ...FONTS.h2,
                       
                       }}
-                      onPress={LoginBtnClick}
+                      onPress={() => {navigation.navigate('DHome')}}
                    />
   
 
-          </View>
-          <View>
-           <Text>{isLoading?'Loading':isError?'Error'+message:isSuccess?'LoginSuccess':''}</Text> 
           </View>
 
 
@@ -186,7 +199,7 @@ navigation.navigate('OTP');
   );
 };
 
-export default LoginScreen;
+export default DOTPScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1, 
@@ -211,7 +224,10 @@ const styles = StyleSheet.create({
     color: COLORS.black,
     ...FONTS.largeTitle,
     fontWeight: 'bold',
+    lineHeight: 40,
     marginTop: 80,
+    width: 300,
+    // height: 200,
     marginLeft: -34
     
   },
@@ -240,8 +256,19 @@ const styles = StyleSheet.create({
   inputTitle: {
     
     ...FONTS.h3,
+    width: WINDOW_WIDTH*0.8,
     fontWeight: 'bold',
+    color: COLORS.black,
     marginTop: SIZES.padding3
+  },
+   
+  inputTitle1: {
+    
+    ...FONTS.h3,
+    fontWeight: 'bold',
+    color: COLORS.gray20,
+    marginTop: 32,
+    marginLeft: -250
   },
   inputSubTitle: {
     
@@ -254,9 +281,10 @@ const styles = StyleSheet.create({
   input: {
     backgroundColor: COLORS.transparentWhite,
     borderColor: COLORS.outLine,
+    marginHorizontal:10,
     borderRadius: 8,
     borderWidth: 1,
-    width: "100%",
+    width: "20%",
     height: 50,
     marginTop: SIZES.padding3,
     padding: SIZES.padding2

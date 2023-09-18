@@ -5,41 +5,41 @@ import { View, Text, TextInput, StyleSheet,KeyboardAvoidingView, StatusBar,Touch
 import { Button} from 'react-native-elements';
 import { COLORS, FONTS, SIZES, icons } from '../constants';
 import { TextIconButton} from "../components"
-import {useDispatch,useSelector} from 'react-redux'
 import * as Animatable from 'react-native-animatable';
 import Feather from 'react-native-vector-icons/Feather'
-import { logInUser } from '../Actions/userActions';
-import { ToastAndroid } from 'react-native';
 
 
 const Tab = createMaterialTopTabNavigator();
 
 // const API_URL = 'http://192.168.1.107:8080/api/users/';
 
-//  this Screen for the login screen for the Employee
+// driver login screen
 
-const LoginScreen  = ({navigation}) => {
+const DLoginScreen  = ({navigation}) => {
 
-const {user,isSuccess,isError,isLoading,message,action}=useSelector((state)=>state.userLogIn)
-  const dispatch = useDispatch();
+    const [name, setName] = useState('');
+ 
+    const [password, setPassword] = useState('');
 
-  const [employeeId, setEmployeeId] = React.useState('');
-  const [password, setPassword] = React.useState('');
+//     const {user,isSuccess,isError,isLoading,message,action}=useSelector((state)=>state.userLogIn)
+//   const dispatch = useDispatch();
 
-  // check the Employee Id and password is correct
+//   const [employeeId, setEmployeeId] = React.useState('');
+//   const [password, setPassword] = React.useState('');
 
-  const LoginBtnClick = () => {
-    dispatch(logInUser({employeeId,password}));
-    console.log(employeeId)
-    console.log(password)
-    // navigation.navigate('OTP');
-  };
-  useEffect(()=>{if(action==='logInUser'&&isSuccess){
-navigation.navigate('OTP');
-  }},[user])
+//   // check the Employee Id and password is correct
 
+//   const LoginBtnClick = () => {
+//     dispatch(logInUser({employeeId,password}));
+//     console.log(employeeId)
+//     console.log(password)
+//     // navigation.navigate('OTP');
+//   };
+//   useEffect(()=>{if(action==='logInUser'&&isSuccess){
+// navigation.navigate('OTP');
+//   }},[user])
 
-
+  
 
 
       let AnimatedHeaderValue = new Animated.Value(0);
@@ -74,7 +74,7 @@ navigation.navigate('OTP');
                             marginTop: SIZES.padding2,
                             backgroundColor: COLORS.transparentWhite,
                             width: 60,
-                            marginLeft: -10
+                            marginLeft: -6
                           
                         }}
                         customIconStyle={{
@@ -84,7 +84,7 @@ navigation.navigate('OTP');
                     /> 
                     
             
-          <Text style={styles.Title}>Login</Text>
+          <Text style={styles.Title}>Driver Login</Text>
         <View style={styles.button}>
 
         <TextIconButton
@@ -106,7 +106,7 @@ navigation.navigate('OTP');
                             marginLeft: 50,
                             fontSize: 20
                         }}
-                        onPress={() => {navigation.navigate('SignUp')}}
+                        onPress={() => {navigation.navigate('DRSignUpScreen')}}
                     /> 
                    
         </View>
@@ -127,13 +127,13 @@ navigation.navigate('OTP');
           <View  style={{ marginTop: SIZES.padding5, margin: SIZES.padding4}}>
                 
                 <View>
-                      <Text style={styles.inputTitle}>EMPLOYEE ID</Text>
+                      <Text style={styles.inputTitle}>DRIVER ID</Text>
                   <TextInput
                     style={styles.input}
-                    placeholder="Enter your Employee ID"
+                    placeholder="Enter your Driver ID"
                     autoFocus
-                    value={employeeId}
-                    onChangeText={text => setEmployeeId(text)}
+                    value={name}
+                    onChangeText={text => setName(text)}
                   />
                   <Text style={styles.inputTitle}>PASSWORD</Text>
                   <TextInput
@@ -165,13 +165,10 @@ navigation.navigate('OTP');
                       ...FONTS.h2,
                       
                       }}
-                      onPress={LoginBtnClick}
+                      onPress={() => {navigation.navigate('DOTP')}}
                    />
   
 
-          </View>
-          <View>
-           <Text>{isLoading?'Loading':isError?'Error'+message:isSuccess?'LoginSuccess':''}</Text> 
           </View>
 
 
@@ -186,7 +183,7 @@ navigation.navigate('OTP');
   );
 };
 
-export default LoginScreen;
+export default DLoginScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1, 
